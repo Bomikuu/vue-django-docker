@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  frontend:
+    image: node:14
+    volumes:
+      - ./frontend:/code
+    working_dir: /code
+    networks:
+      - back-tier
+
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/code
+      - static:/static
+    networks:
+      - back-tier
+    command: ./command.sh
+
+  nginx:
+    image: nginx:1.13
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - static:/static
+    networks:
+      - back-tier
+    depends_on:
+      - frontend
+
+volumes:
+  pg-data:
+    driver: local
+  static:
+    driver: local
+
+networks:
+  back-tier:
+    driver: "bridge"
