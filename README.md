@@ -3,7 +3,7 @@
 This project contains the following technology:
 
 1. Vuex Store
-2. VueJS
+2. VueJS / Vuetify
 3. JEST / Vue Test Utils
 4. Django REST Framework
 5. Docker
